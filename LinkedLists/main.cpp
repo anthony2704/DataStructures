@@ -2,29 +2,7 @@
 
 using namespace std;
 
-// template <typename T> struct Node{
-// public:
-//     T element;
-//     Node* next;
-// };
-
-template <typename T> class IList{
-public:
-    virtual void add(T e) = 0;
-    virtual void add(int index, T e) = 0;
-    virtual T removeAt (int index ) = 0;
-    virtual bool removeItem (T item ) = 0;
-    virtual bool empty () = 0;
-    virtual int size () = 0;
-    virtual void clear () = 0;
-    virtual T get (int index ) = 0;
-    virtual void set ( int index , T e) = 0;
-    virtual int indexOf (T item ) = 0;
-    virtual bool contains ( T item ) = 0;
-    virtual string toString () = 0;
-};
-
-template <typename T> class IntSLinkedList : public IList <T> {
+template <typename T> class IntSLinkedList {
 public:
     class Node;
 
@@ -48,4 +26,57 @@ public:
                 this->next = NULL;
             }
     };
+
+public:
+    void insert(const T& it){
+        Node* pNew = new Node(it);
+        
+        /*
+        2 cases:
+        case 1: empty list
+        case 2: non-empty list
+        */ 
+
+        // case 1
+        if(head == NULL){
+            head = tail = pNew;
+        }
+        else{ // case2
+            tail->next = pNew;
+            tail = pNew;
+        }
+
+        count++;
+    }
+
+    void add(T index, T element){
+        Node* pNew = new Node(element);
+
+        if(count == 0)
+        {
+            head = tail = pNew;
+            count++;
+        }
+
+        if(index == count)
+        {
+            insert(element);
+        }
+        else if(index == 0){
+            pNew->next = head;
+            head = pNew;
+        }
+        else{
+            Node* pCurrent = head;
+
+            for(int i = 0; i < index - 1; i++){
+                pCurrent = pCurrent->next;
+            }
+
+            pNew->next = pCurrent->next;
+            pCurrent->next = pNew;
+        }
+
+        count++;
+    }
 };
