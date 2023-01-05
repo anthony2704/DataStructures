@@ -112,7 +112,7 @@ public:
 
     int size()
     {
-        return 0;
+        return count;
     }
 
     bool empty()
