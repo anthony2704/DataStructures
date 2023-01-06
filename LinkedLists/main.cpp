@@ -24,7 +24,6 @@ public:
             Node(): next(NULL) {}
             Node(T data = 0){
                 T data = 0;
-                //this->next = NULL;
                 next(NULL);
             }
     };
@@ -33,17 +32,10 @@ public:
     void insert(const T& it){
         Node* pNew = new Node(it);
         
-        /*
-        2 cases:
-        case 1: empty list
-        case 2: non-empty list
-        */ 
-
-        // case 1
         if(head == NULL){
             head = tail = pNew;
         }
-        else{ // case2
+        else{ 
             tail->next = pNew;
             tail = pNew;
         }
@@ -54,7 +46,7 @@ public:
     void add(T index, T element){
         Node* pNew = new Node(element);
 
-        if(count == 0)
+        if(head == NULL)
         {
             head = tail = pNew;
             count++;
@@ -67,6 +59,7 @@ public:
         else if(index == 0){
             pNew->next = head;
             head = pNew;
+            count++;
         }
         else{
             Node* pCurrent = head;
@@ -77,9 +70,9 @@ public:
 
             pNew->next = pCurrent->next;
             pCurrent->next = pNew;
-        }
 
-        count++;
+            count++;
+        }
     }
 
     int removeAt(T index) {
