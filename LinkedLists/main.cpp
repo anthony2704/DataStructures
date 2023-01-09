@@ -83,6 +83,7 @@ public:
             pTemp = head;
             head = head->next;
             free(pTemp);
+            count--;
         }
         else if(index == count){
             Node* pPre = head;
@@ -94,6 +95,7 @@ public:
             pPre->next = NULL;
             tail = pPre;
             free(pPre);
+            count--;
         }
         else{
             Node* pTemp = head;
@@ -106,9 +108,8 @@ public:
             pTemp = pPre->next;
             pPre->next = pTemp->next;
             free(pTemp);
+            count--;
         }
-
-        count--;
     }
 
     bool removeItem(int item) {

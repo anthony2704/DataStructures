@@ -82,7 +82,48 @@ public:
 
     int removeAt(int index)
     {
-        return -1;
+        Node* pCurr = new Node();
+
+        if(index == 0)
+        {
+            pCurr = head;
+            head = head->next;
+
+            return pCurr->value;
+            free(pCurr);
+        }
+        else if(index == count - 1)
+        {
+            Node* pPre = head;
+            Node* pCurr = head;
+
+            for(int i = 0; i < index - 1; i++)
+            {
+                pPre = pPre->next;
+            }
+            pCurr = pPre->next;
+            pPre->next = NULL;
+            tail = pPre;
+            return(pCurr->value);
+            free(pPre);
+        }
+        else
+        {
+            Node* pPre = head;
+            Node* pCurr = head;
+
+            for(int i = 0; i < index - 1; i++)
+            {
+                pPre = pPre->next;
+            }
+            pCurr = pPre->next;
+            pPre->next = pCurr->next;
+            pCurr->next->prev = pPre;
+            return(pCurr->value);
+            free(pCurr);
+        }
+        
+        count--;
     }
 
     bool removeItem(int element)
@@ -92,7 +133,28 @@ public:
 
     int get(int index)
     {
-        return -1;
+        Node* pTemp = new Node();
+
+        if(index <= count / 2)
+        {
+            pTemp = head;
+
+            for(int i = 0; i < index; i++)
+            {
+                pTemp = pTemp->next;
+            }
+        }
+        else
+        {
+            pTemp = tail;
+
+            for(int i = 0; i < count - 1 - index; i++)
+            {
+                pTemp = pTemp->prev;
+            }
+        }
+
+        return pTemp->value;
     }
 
     void set(int index, int element)
@@ -159,6 +221,10 @@ int main()
     for (int index = 0; index < size; index++) {
         list.add(list.size(), index);
     }
+
+    // cout << list.size() << endl;
+    // cout << list.removeAt(9) << endl;
+    //cout << list.get(9) << endl;
 
     list.print();
 }
